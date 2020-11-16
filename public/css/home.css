@@ -1,0 +1,562 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-block;
+  display: block;
+  align-items: center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #ffffff;
+  font-family: 'Lato', sans-serif;
+}
+
+
+
+.top-menu {
+  margin-top: 10px !important
+}
+
+.ishop {
+  border-right: 2px solid #dbe4e7;
+  padding-right: 20px !important;
+  margin-right: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  padding: 0 0 15px 0;
+  margin: auto;
+}
+
+
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+
+.container .navbar-ruta {
+  padding: 0;
+  padding-left: 40px;
+  padding-top: 1px;
+  padding-bottom: 2px;
+}
+
+.navbar-ruta .navbar-toggler {
+  margin-left: auto;
+  color: rgba(255,255,255,1);
+  border-color: rgba(255,255,255,0);
+  padding: 1px 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.navbar-ruta .navbar-nav .nav-link {
+  color: rgba(255,255,255,1);
+  font-size: 14px;
+}
+
+.navbar-ruta .navbar-nav .nav-link:focus, .navbar-ruta .navbar-nav .nav-link:hover {
+    color: rgba(255,255,255,.75);
+}
+
+.navbar-ruta .navbar-nav .active>.nav-link, .navbar-ruta .navbar-nav .nav-link.active, 
+.navbar-ruta .navbar-nav .nav-link.show, .navbar-ruta .navbar-nav .show>.nav-link {
+  color: #fff;
+}
+
+
+
+.navbar-ruta .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+.container .navbar-ruta ul li {
+  padding-right: 34px;
+}
+
+.container .navbar-ruta ul li:last-child {
+  padding-right: 0px;
+}
+
+nav a {
+  color: #fff;
+}
+
+
+.sucursal-header {
+  font-weight: bold;
+  font-size: 15pt;
+  padding-bottom: 10px;
+  padding-top: 15px;
+}
+
+
+
+
+.header-home {
+  width: 100%;
+  max-width: 1000px;
+  height: 250px;
+}
+
+.header-home .header-desktop {
+  display: block;
+}
+
+.header-home .header-mobile {
+  display: none;
+}
+
+
+.inicio-cuadros {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 20px;
+}
+
+.inicio-cuadros .col-sm {
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+.inicio-cuadros h3 {
+  color:#00a1df;
+  font-weight: bold;
+  font-size: 28pt;
+  padding-top: 10px;
+}
+
+
+.back-grey-01 {
+  background-color: #efefef;
+}
+
+.back-grey-02 {
+  background-color: #f7f7f7;
+}
+
+.back-grey-03 {
+  background-color: #efefef;
+}
+
+.back-grey-04 {
+  background-color: #f7f7f7;
+}
+
+
+
+
+
+
+
+
+.ranking {
+  background-color:#f7f7f7;
+  padding-top: 60px;
+  padding-bottom: 50px;
+}
+
+.ranking h2 {
+  color: #4aa3ea;
+  padding-bottom: 25px;
+  font-weight: bold;
+}
+
+.tablas-ruta {
+  width: 100%;
+  max-width: 800px;
+}
+
+.tablas-ruta thead th {
+  color:#fff;
+}
+
+.tablas-ruta tbody td,
+.tablas-ruta tbody th {
+  color:#717171;
+}
+
+.tablas-ruta tbody tr:nth-child(even) {
+  background-color: #e5f5fc;
+}
+
+.tablas-ruta tbody tr:nth-child(odd) {
+  background-color: #bfe7f7;
+}
+
+.thead-ruta {
+  background-color: #00a1df;
+}
+
+.tablas-ruta tbody td,
+.tablas-ruta thead th {
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+}
+
+.tablas-ruta tbody td:first-child,
+.tablas-ruta thead th:first-child {
+  border-left: none;
+}
+
+.tablas-ruta tbody td:last-child,
+.tablas-ruta thead th:last-child {
+  border-right: none;
+}
+
+
+
+
+
+
+
+
+.ventas {
+  padding: 50px 0;
+}
+
+.ventas h2 {
+  color: #4aa3ea;
+  padding-bottom: 25px;
+  font-weight: bold;
+}
+
+.productos {
+  background-color: #00a1df;
+  padding: 50px 0;
+}
+
+.productos h2 {
+  color:#fff;
+  padding-bottom: 50px;
+}
+
+.productos .productos-int {
+  width: 100%;
+  max-width: 1000px;
+  padding: 0 20px;
+}
+
+.productos .productos-int .col-sm p {
+  color: #ffffff;
+  padding-top: 25px;
+}
+
+
+
+
+.vendedores {
+  padding: 50px 0;
+}
+
+.vendedores h2 {
+  color: #4aa3ea;
+  padding-bottom: 25px;
+  font-weight: bold;
+}
+
+.vendedores .vendedores-int {
+  width: 100%;
+  max-width: 1000px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 20px;
+}
+
+.vendedores .vendedores-int h3 {
+  color:#717171;
+  font-weight: bold;
+  font-size: 16pt;
+}
+
+.vendedores .vendedores-int p {
+  color:#717171;
+  font-size: 12pt;
+  line-height: 15pt;
+  text-align: justify;
+}
+
+
+
+
+
+
+
+.mecanica {
+  padding: 50px 0;
+  background-color:#f7f7f7;
+}
+
+.mecanica h2 {
+  color: #4aa3ea;
+  padding-bottom: 25px;
+  font-weight: bold;
+}
+
+.mecanica .mecanica-int {
+  width: 100%;
+  max-width: 1000px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 20px;
+}
+
+.mecanica .mecanica-int h3 {
+  color:#717171;
+  font-weight: bold;
+  font-size: 16pt;
+}
+
+.mecanica .mecanica-int p {
+  color:#717171;
+  font-size: 12pt;
+  line-height: 15pt;
+  text-align: justify;
+}
+
+
+
+
+
+.contacto {
+  padding: 50px 0;
+  background-color:#00a1df;
+}
+
+.contacto h2 {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 530px;
+  padding: 15px;
+  margin: auto;
+  padding-top: 5px;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #00a1df;
+  color: #fff;
+  border-radius: 0;
+  border-color: #fff;
+  margin-bottom: 15px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin .form-control::placeholder {
+  color: #fff;
+}
+
+.form-signin .btn-001 {
+  background-color: #ffffff;
+  color:#00a1df;
+  border-radius: 0;
+  font-size: 11pt;
+  margin-top: 30px;
+  padding-left: 79px;
+  padding-right: 79px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.form-signin .btn-001:hover {
+  background-color: #fff;
+  color:#000;
+}
+
+.form-signin .p {
+  color: #fff;
+  font-size: 15px;
+}
+
+
+
+
+#modalPassword .modal-content {
+  background-color: #00a1df;
+  border-radius: 0;
+  border: 0;
+  padding-bottom: 20px;
+}
+
+.close {
+  color: #ffffff;
+  font-size: 1.8rem;
+  text-shadow: none;
+  opacity: 1;
+}
+
+#modalPassword .modal-header {
+  border-bottom: 0;
+}
+
+#modalPassword h2 {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+#modalPassword p {
+  color: #fff;
+  font-size: 15px;
+}
+
+.form-password {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  padding-top: 5px;
+}
+.form-password .checkbox {
+  font-weight: 400;
+}
+.form-password .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 5px 10px 4px 10px;
+  font-size: 16px;
+  background-color: #00a1df;
+  color: #fff;
+  border-radius: 0;
+  border-color: #fff;
+  margin-bottom: 15px;
+}
+.form-password .form-control:focus {
+  z-index: 2;
+}
+.form-password .form-control::placeholder {
+  color: #fff;
+}
+
+.form-password .btn-002 {
+  background-color: #000000;
+  color:#ffffff;
+  border-radius: 0;
+  font-size: 11pt;
+  margin-top: 30px;
+  padding-left: 79px;
+  padding-right: 79px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.form-password .btn-002:hover {
+  background-color: #fff;
+  color:#000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * Footer
+ */
+.blog-footer {
+  bottom: 0;
+  position: relative;
+  width: 100%;
+  font-size: 15px;
+  padding: 12px 0;
+  color: #000000;
+  text-align: center;
+  background-color: #f7f7f7;
+  border-top: .05rem solid #e5e5e5;
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
+}
+
+
+
+
+@media (max-width:950px){
+  
+
+  .container .navbar-ruta ul li {
+    padding-right: 0px;
+  }
+
+  .sucursal-header {
+    padding-left: 15px;
+  }
+
+  .header-home {
+    height: auto;
+  }
+
+  .header-home .header-desktop {
+    display: none;
+  }
+
+  .header-home .header-mobile {
+    display: block;
+  }
+
+  .inicio-cuadros .col-sm {
+    width: 50%;
+  }
+
+  .back-grey-04 {
+    background-color: #efefef;
+  }
+
+  .back-grey-03 {
+    background-color: #f7f7f7;
+  }
+
+
+  .ranking,
+  .ventas{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .vendedores .vendedores-int {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .mecanica .mecanica-int {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

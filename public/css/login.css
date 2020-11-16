@@ -1,0 +1,158 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #00a1df;
+  font-family: 'Lato', sans-serif;
+}
+
+
+
+.header-top {
+  height: 250px;
+  padding: 0;
+  background-image: url('../img/imagen-ruta.jpg');
+  background-position: center center;
+  background-size: cover;
+  padding-top: 50px;
+}
+
+
+.container {
+  flex: 1;
+}
+
+
+.form-signin {
+  width: 100%;
+  max-width: 300px;
+  padding: 15px;
+  margin: auto;
+  padding-top: 45px;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 5px 10px 4px 10px;
+  font-size: 16px;
+  background-color: #00a1df;
+  color: #fff;
+  border-radius: 0;
+  border-color: #fff;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin .form-control::placeholder {
+  color: #fff;
+}
+.form-signin input[type="email"] {
+  margin-bottom: 15px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+.olvidaste-001 {
+  color: #fff;
+  font-size: 14px;
+}
+
+
+
+.form-signin .btn-001 {
+  background-color: #000;
+  color:#fff;
+  border-radius: 0;
+  font-size: 11pt;
+  padding: 6px;
+}
+
+.form-signin .btn-001:hover {
+  background-color: #fff;
+  color:#000;
+}
+
+.form-signin .h1 {
+  color: #fff;
+  font-size: 27px;
+  font-weight: bold !important;
+}
+
+.form-signin .h2 {
+  color: #fff;
+  font-size: 16px;
+  padding-bottom: 15px;
+}
+
+.form-signin .btn-002 {
+  margin-top: 20px;
+  background-color: #e16137;
+  color:#fff;
+  border-radius: 0;
+  font-size: 11pt;
+  margin-bottom: 20px;
+  padding-top: 6px;
+  padding-bottom: 5px;
+}
+
+.form-signin .btn-002:hover {
+  background-color: #fff;
+  color:#000;
+}
+
+.link-001:hover {
+  text-decoration: none;
+}
+
+
+
+/*
+ * Footer
+ */
+.blog-footer {
+  width: 100%;
+  font-size: 15px;
+  padding: 12px 0;
+  color: #000000;
+  text-align: center;
+  background-color: #f7f7f7;
+  border-top: .05rem solid #e5e5e5;
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

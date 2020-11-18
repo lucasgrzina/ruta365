@@ -66,3 +66,7 @@
     <a href="{!! route('materiales.index') !!}"><i class="fa fa-edit"></i><span>Materiales</span></a>
 </li>
 
+<li class="{{ Request::is('ventas*') ? 'active' : '' }}">
+    <a href="{!! route('ventas.index') !!}"><i class="fa fa-edit"></i><span>Ventas</span></a>
+</li>
+

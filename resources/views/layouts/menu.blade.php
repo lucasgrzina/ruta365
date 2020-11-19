@@ -29,44 +29,54 @@
 </li>
 @endif
 
-
+@if (\App\Helpers\AdminHelper::mostrarMenu('retails'))
 <li class="{{ Request::is('retails*') ? 'active' : '' }}">
     <a href="{!! route('retails.index') !!}"><i class="fa fa-edit"></i><span>Retails</span></a>
 </li>
+@endif
 
+@if (\App\Helpers\AdminHelper::mostrarMenu('sucursales'))
 <li class="{{ Request::is('sucursales*') ? 'active' : '' }}">
     <a href="{!! route('sucursales.index') !!}"><i class="fa fa-edit"></i><span>Sucursales</span></a>
 </li>
-
+@endif
+@if (\App\Helpers\AdminHelper::mostrarMenu('banners'))
 <li class="{{ Request::is('banners*') ? 'active' : '' }}">
     <a href="{!! route('banners.index') !!}"><i class="fa fa-edit"></i><span>Banners</span></a>
 </li>
-
+@endif
+@if (\App\Helpers\AdminHelper::mostrarMenu('premios'))
 <li class="{{ Request::is('premios*') ? 'active' : '' }}">
     <a href="{!! route('premios.index') !!}"><i class="fa fa-edit"></i><span>Premios</span></a>
 </li>
-
+@endif
+@if (\App\Helpers\AdminHelper::mostrarMenu('productos'))
 <li class="{{ Request::is('productos*') ? 'active' : '' }}">
     <a href="{!! route('productos.index') !!}"><i class="fa fa-edit"></i><span>Productos</span></a>
 </li>
-
+@endif
+@if (\App\Helpers\AdminHelper::mostrarMenu('mecanicas'))
 <li class="{{ Request::is('mecanicas*') ? 'active' : '' }}">
     <a href="{!! route('mecanicas.index') !!}"><i class="fa fa-edit"></i><span>Mecanicas</span></a>
 </li>
-
+@endif
+@if (\App\Helpers\AdminHelper::mostrarMenu('contactos'))
 <li class="{{ Request::is('contactos*') ? 'active' : '' }}">
     <a href="{!! route('contactos.index') !!}"><i class="fa fa-edit"></i><span>Contactos</span></a>
 </li>
-
+@endif
+@if (\App\Helpers\AdminHelper::mostrarMenu('alertas'))
 <li class="{{ Request::is('alertas*') ? 'active' : '' }}">
     <a href="{!! route('alertas.index') !!}"><i class="fa fa-edit"></i><span>Alertas</span></a>
 </li>
-
+@endif
+@if (\App\Helpers\AdminHelper::mostrarMenu('materiales'))
 <li class="{{ Request::is('materiales*') ? 'active' : '' }}">
     <a href="{!! route('materiales.index') !!}"><i class="fa fa-edit"></i><span>Materiales</span></a>
 </li>
-
+@endif
+@if (\App\Helpers\AdminHelper::mostrarMenu('ventas'))
 <li class="{{ Request::is('ventas*') ? 'active' : '' }}">
     <a href="{!! route('ventas.index') !!}"><i class="fa fa-edit"></i><span>Ventas</span></a>
 </li>
-
+@endif

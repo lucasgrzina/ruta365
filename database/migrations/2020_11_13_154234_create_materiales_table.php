@@ -15,15 +15,16 @@ class CreateMaterialesTable extends Migration
     {
         Schema::create('materiales', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('sucursal_id');
-            $table->char('tipo');
-            $table->string('imagen');
-            $table->text('descripcion');
+            $table->unsignedInteger('user_id')->index();
+            $table->unsignedInteger('sucursal_id')->index();
+            $table->char('tipo',1)->default('P')->index();
+            $table->string('imagen')->nullable();
+            $table->text('descripcion')->nullable();
+            $table->auditable();
             $table->timestamps();
             $table->softDeletes();
             //$table->boolean('enabled')->default(true)->index();
-            $table->auditable();
+            
         });
 
         /*Schema::create('SINGULAR_NAME_translations', function (Blueprint $table) {

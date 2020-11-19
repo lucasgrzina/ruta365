@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\CrudAdminController;
-use App\Http\Requests\Admin\CUVentasRequest;
-use App\Repositories\VentasRepository;
-use Illuminate\Http\Request;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
-use App\Sucursales;
-use App\Productos;
 use DB;
+use Response;
+use App\Paises;
+use App\Productos;
+use App\Sucursales;
+use Illuminate\Http\Request;
+use App\Repositories\VentasRepository;
+use App\Http\Requests\Admin\CUVentasRequest;
+use App\Repositories\Criteria\VentasCriteria;
+use Prettus\Repository\Criteria\RequestCriteria;
+use App\Http\Controllers\Admin\CrudAdminController;
 
 class VentasController extends CrudAdminController
 {
@@ -29,6 +31,29 @@ class VentasController extends CrudAdminController
     public function index()
     {
         parent::index();
+
+        if (auth()->user()->hasAnyRole(['Comprador','Marketing Manager'])) {
+            $owner = true;
+            $sucursales = Sucursales::whereRetailId(auth()->user()->retail_id)->whereEnabled(true)->get();
+        } else {
+            $owner = false;
+            $sucursales = [];
+        }
+
+        $this->data['owner'] = $owner;
+        $this->data['filters']['pais_id'] = null;
+        $this->data['filters']['retail_id'] = $owner ? auth()->user()->retail_id : null;
+        $this->data['filters']['sucursal_id'] = null;
+
+        $this->data['info'] = [
+            'productos' => Productos::whereEnabled(true)->orderBy('orden', 'asc')->get(),
+            'paises' => Paises::whereEnabled(true)->orderBy('nombre')->get(),
+            'retails' => [],
+            'sucursales' => $sucursales
+        ];
+
+
+
         return view($this->viewPrefix.'index')->with('data',$this->data);
     }
 
@@ -37,6 +62,7 @@ class VentasController extends CrudAdminController
         try
         {
             $this->repository->pushCriteria(new RequestCriteria($request));
+            $this->repository->pushCriteria(new VentasCriteria($request));
             $collection = $this->repository->with(['updater', 'sucursal', 'productos'])->paginate($request->get('per_page'))->toArray();        
 
             $this->data = [
@@ -129,12 +155,15 @@ class VentasController extends CrudAdminController
     {
         parent::edit($id);
         
+        $sucursal = Sucursales::find($this->data['selectedItem']->sucursal_id);
+
         data_set($this->data,'info',[
-            'sucursales'    => Sucursales::whereRetailId(auth()->user()->retail_id)->whereEnabled(true)->get()
+            'sucursales'    => Sucursales::whereRetailId($sucursal->retail_id)->whereEnabled(true)->get()
         ]); 
 
         $this->data['selectedItem']->load('productos.producto');
 
+        
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
 

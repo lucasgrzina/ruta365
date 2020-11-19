@@ -25,7 +25,9 @@ class PermissionSeeder extends Seeder
 			['Mecanicas', 36],
 			['Contactos', 37],
 			['Alertas', 38],
+			['Materiales', 39],
 			['Ventas', 40],
+			['Ranking', 41],
         ];
 
         foreach ($items as $i => $value) 

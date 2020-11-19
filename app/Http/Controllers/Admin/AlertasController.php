@@ -30,7 +30,6 @@ class AlertasController extends CrudAdminController
     {
         parent::index();
         if (auth()->user()->hasAnyRole(['Comprador','Marketing Manager'])) {
-            
             $owner = true;
         } else {
             $owner = false;

@@ -78,7 +78,11 @@
 @endsection
 
 @section('content-header')
-{!! AdminHelper::contentHeader('Alertas',trans('admin.list'),'new','create()') !!}
+@if(auth()->user()->hasAnyRole(['Comprador','Marketing Manager']))
+    {!! AdminHelper::contentHeader('Alertas',trans('admin.list'),'new','create()') !!}
+@else
+    {!! AdminHelper::contentHeader('Alertas',trans('admin.list')) !!}
+@endif
 @endsection
 
 @section('content')

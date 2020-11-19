@@ -21,7 +21,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5.0",
         "league/flysystem-aws-s3-v3": "^1.0@dev",
-        "maatwebsite/excel": "3.1.x-dev",
+        "maatwebsite/excel": "3.0.x-dev",
         "spatie/laravel-permission": "^2.7",
         "yajra/laravel-auditable": "2.0"
     },

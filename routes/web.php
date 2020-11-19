@@ -115,7 +115,11 @@ Route::prefix('/admin')->group(function () {
 
         Route::post('alertas/change-enabled', 'Admin\AlertasController@changeEnabled')->name('alertas.change-enabled');
         Route::post('alertas/filter', 'Admin\AlertasController@filter')->name('alertas.filter');
-        Route::resource('alertas', 'Admin\AlertasController');        
+        Route::resource('alertas', 'Admin\AlertasController');    
+      
+        Route::post('ventas/change-enabled', 'Admin\VentasController@changeEnabled')->name('ventas.change-enabled');
+        Route::post('ventas/filter', 'Admin\VentasController@filter')->name('ventas.filter');
+        Route::resource('ventas', 'Admin\VentasController');    
 
         //Route::get('clientes/importar', 'Admin\ClientesController@importar')->name('clientes.importar');
         //Route::post('clientes/importar', 'Admin\ClientesController@importarArchivo')->name('clientes.importar-archivo');
@@ -187,3 +191,4 @@ Route::get('materiales/edit/{id}/{lang}', 'MaterialesController@editLang')->name
 Route::post('materiales/change-enabled', 'MaterialesController@changeEnabled')->name('materiales.change-enabled');
 Route::post('materiales/filter', 'MaterialesController@filter')->name('materiales.filter');
 Route::resource('materiales', 'MaterialesController');
+

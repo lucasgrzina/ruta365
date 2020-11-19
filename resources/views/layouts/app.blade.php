@@ -163,6 +163,7 @@
         <script src="{{ asset('vendor/vue-strap.min.js') }}"></script>
         <script src="{{ asset('vendor/moment/moment.min.js') }}"></script>
         <script src="{{ asset('admin/js/button-type.js') }}"></script>
+        
 
     @else
     @endif

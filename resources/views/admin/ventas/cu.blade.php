@@ -11,6 +11,7 @@
     <script type="text/javascript">
         //Vue.component('file-upload', VueUploadComponent);
         var _data = {!! json_encode($data) !!};
+        
     </script>
     <script type="text/javascript" src="{{ asset('vendor/vee-validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admin/crud/js/cu.js') }}"></script>

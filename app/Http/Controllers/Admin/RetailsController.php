@@ -110,22 +110,26 @@ class RetailsController extends CrudAdminController
             $model = $this->_store($input,true);
 
             foreach ($usuarios as $usuario) {
-                if (!$usuario['nombre'] || !$usuario['apellido'] || !$usuario['email'] || !$usuario['password']) {
-                    throw new \Exception("La información de los usuarios debe estar completa", 1);
-                }
-                if (User::whereEmail($usuario['email'])->count() > 0) {
-                    throw new \Exception("Ya hay un usuario con el email " . $usuario['email'], 1);    
-                }
-                $usuario['retail_id'] = $model->id;
-                $userModel = $userRepo->create($usuario);
+                
+                if ($usuario['nombre'] && $usuario['apellido'] && $usuario['email'] && $usuario['password']) {
+                    if (User::whereEmail($usuario['email'])->count() > 0) {
+                        throw new \Exception("Ya hay un usuario con el email " . $usuario['email'], 1);    
+                    }
+                    $usuario['retail_id'] = $model->id;
+                    $userModel = $userRepo->create($usuario);
+        
+                    $role = Role::whereId($usuario['role_id'])->firstOrFail();            
+                    $userModel->assignRole($role); //Assigning role to user
+                    
+                } else {
+                    if ($usuario['nombre'] || $usuario['apellido'] || $usuario['email'] || $usuario['password']) {
+                        throw new \Exception("La información del {$usuario['role']['name']} debe estar completa", 1);
+                    }
     
-                $role = Role::whereId($usuario['role_id'])->firstOrFail();            
-                $userModel->assignRole($role); //Assigning role to user
+                }
 
             }
 
-            // throw new \Exception("Error Processing Request", 1);
-            
             DB::commit();
             return $this->sendResponse($model,trans('admin.success'));        
         } catch(\Exception $ex) {
@@ -189,28 +193,43 @@ class RetailsController extends CrudAdminController
             $model = $this->_update($id, $input,true);
 
             foreach ($usuarios as $usuario) {
-                if (!$usuario['nombre'] || !$usuario['apellido'] || !$usuario['email'] || (!$usuario['id'] && !$usuario['password'])) {
-                    throw new \Exception("La información de los usuarios debe estar completa", 1);
-                }
-                if (User::where('id','!=',$usuario['id'])->whereEmail($usuario['email'])->count() > 0) {
-                    throw new \Exception("Ya hay un usuario con el email " . $usuario['email'], 1);    
-                }
-                
+
                 if ($usuario['id']) {
-                    $userModel = $userRepo->update($usuario,$usuario['id']);    
+                    if (!$usuario['nombre'] || !$usuario['apellido'] || !$usuario['email']) {
+                        throw new \Exception("La información del {$usuario['role']['name']} debe estar completa", 1);
+                    }                    
+                    if (User::where('id','!=',$usuario['id'])->whereEmail($usuario['email'])->count() > 0) {
+                        throw new \Exception("Ya hay un usuario con el email " . $usuario['email'], 1);    
+                    }
+                    $userModel = $userRepo->update(array_except($usuario,['password']),$usuario['id']);    
+
+                    if ($usuario['password']) {
+                        $userModel->password = $usuario['password'];
+                        $userModel->save();
+                    }
+    
                 } else {
-                    $usuario['retail_id'] = $model->id;
-                    $userModel = $userRepo->create($usuario);    
-                    $role = Role::whereId($usuario['role_id'])->firstOrFail();            
-                    $userModel->assignRole($role); //Assigning role to user
-    
+                    if ($usuario['nombre'] && $usuario['apellido'] && $usuario['email'] && $usuario['password']) {
+                        if (User::whereEmail($usuario['email'])->count() > 0) {
+                            throw new \Exception("Ya hay un usuario con el email " . $usuario['email'], 1);    
+                        }
+                        $usuario['retail_id'] = $model->id;
+                        $userModel = $userRepo->create($usuario);
+            
+                        $role = Role::whereId($usuario['role_id'])->firstOrFail();            
+                        $userModel->assignRole($role); //Assigning role to user
+                        
+                    } else {
+                        if ($usuario['nombre'] || $usuario['apellido'] || $usuario['email'] || $usuario['password']) {
+                            throw new \Exception("La información del {$usuario['role']['name']} debe estar completa", 1);
+                        }
+        
+                    }
                 }
-                //$userModel = $userRepo->create($usuario);
-    
 
             }
 
-            // throw new \Exception("Error Processing Request", 1);
+            //throw new \Exception("Error Processing Request", 1);
             
             DB::commit();
             return $this->sendResponse($model,trans('admin.success'));        
@@ -265,7 +284,7 @@ class RetailsController extends CrudAdminController
                     //Para actualizar
                     Sucursales::whereId($codigosDb[$codigo])->update([
                         'nombre' => trim($row['nombre']),
-                        'observaciones' => $row['observaciones'],
+                        //'observaciones' => $row['observaciones'],
                         'target_attach' => $row['target_attach'] ? (float)$row['target_attach'] : 0,
                         'piso_unidades_office' => $row['piso_unidades_office'] ? (int)$row['piso_unidades_office'] : 0,
                         'categoria_cluster' => $row['categoria_cluster'] ? (int)$row['categoria_cluster'] : 0,
@@ -276,7 +295,7 @@ class RetailsController extends CrudAdminController
                             'codigo' => str_ireplace('-','',trim($row['codigo'])),
                             'retail_id' => $id,
                             'nombre' => trim($row['nombre']),
-                            'observaciones' => $row['observaciones'],
+                            //'observaciones' => $row['observaciones'],
                             'target_attach' => $row['target_attach'] ? (float)$row['target_attach'] : 0,
                             'piso_unidades_office' => $row['piso_unidades_office'] ? (int)$row['piso_unidades_office'] : 0,
                             'categoria_cluster' => $row['categoria_cluster'] ? (int)$row['categoria_cluster'] : 0,

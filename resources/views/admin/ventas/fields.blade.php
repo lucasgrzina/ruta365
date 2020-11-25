@@ -23,18 +23,15 @@
         <table class="table table-condensed">
             <tr>
                 
-                <th>Nombre</th>
+                <th width="70%">Nombre</th>
                 <th>Imagen</th>
                 <th>Cantidad</th>
-                <th>Orden</th>
             </tr>
             <tr v-for="item in selectedItem.productos">
                 
                 <td><input type="text" class="form-control input-xs" disabled="true" v-model="item.producto.nombre"></td>
                 <td><div style="width: 80px; height: 40px; background-size: cover; background-position: center;" v-bind:style="{ backgroundImage: 'url(' + item.producto.imagen_url + ')' }"></div></td>
                 <td><input type="number" class="form-control input-xs" v-model="item.cantidad"></td>
-                <td><input type="text" disabled="true" class="form-control input-xs" v-model="item.producto.orden"></td>
-               
             </tr>
         </table>
     </div>

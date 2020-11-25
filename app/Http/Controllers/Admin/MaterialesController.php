@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\CrudAdminController;
-use App\Http\Requests\Admin\CUMaterialesRequest;
-use App\Repositories\MaterialesRepository;
-use Illuminate\Http\Request;
-use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use App\Paises;
+use App\Sucursales;
+use Illuminate\Http\Request;
+use App\Repositories\MaterialesRepository;
+use App\Http\Requests\Admin\CUMaterialesRequest;
+use Prettus\Repository\Criteria\RequestCriteria;
+use App\Repositories\Criteria\MaterialesCriteria;
+use App\Http\Controllers\Admin\CrudAdminController;
 
 class MaterialesController extends CrudAdminController
 {
@@ -26,6 +29,26 @@ class MaterialesController extends CrudAdminController
     public function index()
     {
         parent::index();
+        if (auth()->user()->hasAnyRole(['Comprador','Marketing Manager'])) {
+            $owner = true;
+            $sucursales = Sucursales::whereRetailId(auth()->user()->retail_id)->whereEnabled(true)->get();
+        } else {
+            $owner = false;
+            $sucursales = [];
+        }
+
+        $this->data['owner'] = $owner;
+        $this->data['filters']['pais_id'] = null;
+        $this->data['filters']['retail_id'] = $owner ? auth()->user()->retail_id : null;
+        $this->data['filters']['sucursal_id'] = null;
+        $this->data['filters']['tipo'] = null;
+
+
+        $this->data['info'] = [
+            'paises' => Paises::whereEnabled(true)->orderBy('nombre')->get(),
+            'retails' => [],
+            'sucursales' => $sucursales
+        ];
 
         return view($this->viewPrefix.'index')->with('data',$this->data);
     }
@@ -35,7 +58,8 @@ class MaterialesController extends CrudAdminController
         try
         {
             $this->repository->pushCriteria(new RequestCriteria($request));
-            $collection = $this->repository->with('updater')->paginate($request->get('per_page'))->toArray();        
+            $this->repository->pushCriteria(new MaterialesCriteria($request));
+            $collection = $this->repository->with(['updater','usuario','sucursal.retail.pais'])->paginate($request->get('per_page'))->toArray();        
 
             $this->data = [
                 'list' => $collection['data'],
@@ -55,7 +79,7 @@ class MaterialesController extends CrudAdminController
     {
         parent::show($id);
 
-        //$this->data['selectedItem']->load('xxx');
+        $this->data['selectedItem']->load(['usuario','sucursal.retail.pais']);
 
         return view($this->viewPrefix.'show')->with('data', $this->data);
     }
@@ -64,16 +88,36 @@ class MaterialesController extends CrudAdminController
     {
         parent::create();
 
+        if (!auth()->user()->hasAnyRole(['Comprador','Marketing Manager'])) {
+            throw new \Exception('No puedes realizar esta acción');
+        } else {
+            $owner = true;
+        }
+
+        
         data_set($this->data, 'selectedItem', [
-                'id' => 0
+                'id' => 0,
+                'user_id' => auth()->user()->id,
+                'usuario' => auth()->user(),
+                'sucursal_id' => null,
+                'imagen' => null,
+                'imagen_url' => null,
+                'tipo' => request()->get('tipo','P'),
+                'descripcion' => null
         ]);
+
+        $this->data['owner'] = $owner;
+
+        data_set($this->data,'info',[
+            'sucursales' => Sucursales::whereRetailId(auth()->user()->retail_id)->whereEnabled(true)->get()
+        ]);   
 
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
 
     public function store(CUMaterialesRequest $request)
     {
-        $model = $this->_store($request);
+        $model = $this->_store($request->except(['usuario','sucursal']));
         return $this->sendResponse($model,trans('admin.success'));        
     }
 
@@ -81,6 +125,20 @@ class MaterialesController extends CrudAdminController
     {
         parent::edit($id);
 
+        $this->data['selectedItem']->load(['usuario','sucursal.retail.pais']);
+        
+        if (auth()->user()->hasAnyRole(['Comprador','Marketing Manager'])) {            
+            $owner = true;
+        } else {
+            $owner = false;
+        }    
+
+
+        $this->data['owner'] = $owner;
+
+        data_set($this->data,'info',[
+            'sucursales' => Sucursales::whereRetailId(auth()->user()->retail_id)->whereEnabled(true)->get()
+        ]);  
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }
 

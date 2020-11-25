@@ -7,10 +7,31 @@
 
 @section('scripts')
     @parent
-    <!--script type="text/javascript" src="{{ asset('vendor/vue-upload-component/vue-upload-component.min.js') }}"></script-->
+    <script type="text/javascript" src="{{ asset('vendor/vue-upload-component/vue-upload-component.min.js') }}"></script>
     <script type="text/javascript">
-        //Vue.component('file-upload', VueUploadComponent);
+        Vue.component('file-upload', VueUploadComponent);
         var _data = {!! json_encode($data) !!};
+
+        _data.files = {
+            imagen: []
+        };          
+
+        _methods.inputImagen = function (n,o) {
+          var _this = this;
+          this.inputFile(n,o,function(file) {
+              //_this.errors.remove('files');
+              _this.selectedItem.imagen_url = file.response.data.path;
+              _this.selectedItem.imagen = file.response.data.file;          
+          }, function(file) {
+            //_this.errors.add('light_logo',file.error, 'server');
+          },'uploadImagen');
+        } 
+      
+
+        _methods.removeImagen = function(tipo) {
+            this.selectedItem['imagen'] = null;
+            this.selectedItem['imagen_url'] = null;
+        }              
     </script>
     <script type="text/javascript" src="{{ asset('vendor/vee-validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admin/crud/js/cu.js') }}"></script>

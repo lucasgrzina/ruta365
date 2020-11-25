@@ -35,11 +35,6 @@
 </li>
 @endif
 
-@if (\App\Helpers\AdminHelper::mostrarMenu('sucursales'))
-<li class="{{ Request::is('sucursales*') ? 'active' : '' }}">
-    <a href="{!! route('sucursales.index') !!}"><i class="fa fa-edit"></i><span>Sucursales</span></a>
-</li>
-@endif
 @if (\App\Helpers\AdminHelper::mostrarMenu('banners'))
 <li class="{{ Request::is('banners*') ? 'active' : '' }}">
     <a href="{!! route('banners.index') !!}"><i class="fa fa-edit"></i><span>Banners</span></a>

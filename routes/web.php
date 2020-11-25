@@ -121,6 +121,10 @@ Route::prefix('/admin')->group(function () {
         Route::post('ventas/filter', 'Admin\VentasController@filter')->name('ventas.filter');
         Route::resource('ventas', 'Admin\VentasController');    
 
+        Route::post('materiales/change-enabled', 'Admin\MaterialesController@changeEnabled')->name('materiales.change-enabled');
+        Route::post('materiales/filter', 'Admin\MaterialesController@filter')->name('materiales.filter');
+        Route::resource('materiales', 'Admin\MaterialesController');        
+
         //Route::get('clientes/importar', 'Admin\ClientesController@importar')->name('clientes.importar');
         //Route::post('clientes/importar', 'Admin\ClientesController@importarArchivo')->name('clientes.importar-archivo');
         //Route::post('clientes/change-enabled', 'Admin\ClientesController@changeEnabled')->name('clientes.change-enabled');
@@ -184,11 +188,3 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/guardar-contacto', 'Front\HomeController@guardarContacto')->name('guardarContacto');
     Route::get('/', 'Front\HomeController@index')->name('home');
 });
-
-
-
-Route::get('materiales/edit/{id}/{lang}', 'MaterialesController@editLang')->name('materiales.edit-lang');            
-Route::post('materiales/change-enabled', 'MaterialesController@changeEnabled')->name('materiales.change-enabled');
-Route::post('materiales/filter', 'MaterialesController@filter')->name('materiales.filter');
-Route::resource('materiales', 'MaterialesController');
-

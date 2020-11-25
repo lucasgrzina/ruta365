@@ -91,13 +91,13 @@
         <div class="box box-default box-page-list">
             <div class="box-body box-filter">
                 <div class="form-inline">
-                    <div class="form-group">
+                    <div class="form-group" v-if="!owner">
                         <select v-model="filters.pais_id" class="form-control input-sm" name="pais_id" @change="alCambiar('pais_id')">
                             <option v-for="item in info.paises" :value="item.id">(% item.nombre %)</option>
                             <option :value="null">Paises (todos)</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" v-if="!owner">
                         <select v-model="filters.retail_id" class="form-control input-sm" name="retail_id" @change="alCambiar('retail_id')">
                             <option v-for="item in info.retails" :value="item.id">(% item.nombre %)</option>
                             <option :value="null">Retails (todos)</option>

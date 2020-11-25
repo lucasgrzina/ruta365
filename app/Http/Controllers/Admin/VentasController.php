@@ -161,40 +161,37 @@ class VentasController extends CrudAdminController
             'sucursales'    => Sucursales::whereRetailId($sucursal->retail_id)->whereEnabled(true)->get()
         ]); 
 
-        $ventasGuardas = $this->data['selectedItem']->load('productos.producto');
+        $this->data['selectedItem']->load('productos.producto');
 
         //dd($ventasGuardas->productos[0]->venta_id);
 
-        $this->data['selectedItem'] = $this->data['selectedItem']->toArray();
+        
 
         $productos          = Productos::whereEnabled(true)->orderBy('orden', 'asc')->get();
-        $ventasProductos    = [];
+        $productosVenta     = $this->data['selectedItem']->productos;
 
-        
-        foreach ($productos as $producto) {
-            $productExist = false;
+        $productosCombinado = [];
 
-            for ($i=0; $i < count($ventasGuardas->productos); $i++) { 
-                if($producto['id'] == $ventasGuardas->productos[$i]['producto_id'] ){
-                    $productExist = true;
-                    array_push($ventasProductos, $ventasGuardas->productos[$i]);
-                }else if ($ventasGuardas->productos[$i]['cantidad'] > 0){
-                    $productExist = true;
-                }
-            }
-
-            if (!$productExist){
-                array_push($ventasProductos, [
+        foreach($productos as $producto) {
+            
+            $productoCargado = $productosVenta->firstWhere('producto_id', $producto->id);
+            if ($productoCargado) {
+                $productosCombinado[] = $productoCargado->toArray();
+            } else {
+                
+                $productosCombinado[] = [
                     'id'            => 0,
                     'venta_id'      => 0,
                     'producto_id'   => $producto->id,
                     'producto'      => $producto,
                     'cantidad'      => 0
-                ]);
+                ];
             }
         }
-
-        $this->data['selectedItem']['productos'] = $ventasProductos;
+        \Log::info($productosCombinado);
+        
+        $this->data['selectedItem'] = $this->data['selectedItem']->toArray();
+        $this->data['selectedItem']['productos'] = $productosCombinado;
 
         
         return view($this->viewPrefix.'cu')->with('data',$this->data);

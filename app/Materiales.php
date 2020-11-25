@@ -26,7 +26,7 @@ class Materiales extends Model
 
     use AuditableTrait;
     //use Translatable;
-    //use UploadableTrait;
+    use UploadableTrait;
 
     public $table = 'materiales';
     
@@ -42,8 +42,8 @@ class Materiales extends Model
      * files, targetDir, tmpDir, disk
      */
 
-    //public $files = ['the_file'];
-    //public $targetDir = 'materiales';
+    public $files = ['imagen'];
+    public $targetDir = 'materiales';
 
 
     
@@ -92,12 +92,23 @@ class Materiales extends Model
      *
      * @var array
      */
-    //protected $appends = ['the_file_url'];
+    protected $appends = ['imagen_url'];
 
-    /*public function getTheFileUrlAttribute($value) 
+    public function getImagenUrlAttribute($value) 
     {
-        return \FUHelper::fullUrl($this->targetDir,$this->the_file);
-    }*/   
+        return $this->imagen ? \FUHelper::fullUrl($this->targetDir,$this->imagen) : null;
+    }
+    
+    public function usuario()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+    
+
+    public function sucursal()
+    {
+        return $this->belongsTo('App\Sucursales', 'sucursal_id');
+    }    
 
 
     

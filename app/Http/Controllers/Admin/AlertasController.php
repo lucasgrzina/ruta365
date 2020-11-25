@@ -31,19 +31,22 @@ class AlertasController extends CrudAdminController
         parent::index();
         if (auth()->user()->hasAnyRole(['Comprador','Marketing Manager'])) {
             $owner = true;
+            $sucursales = Sucursales::whereRetailId(auth()->user()->retail_id)->whereEnabled(true)->get();
         } else {
             $owner = false;
+            $sucursales = [];
         }
+
         $this->data['owner'] = $owner;
         $this->data['filters']['pais_id'] = null;
-        $this->data['filters']['retail_id'] = null;
+        $this->data['filters']['retail_id'] = $owner ? auth()->user()->retail_id : null;
         $this->data['filters']['sucursal_id'] = null;
         $this->data['filters']['leido'] = null;
 
         $this->data['info'] = [
             'paises' => Paises::whereEnabled(true)->orderBy('nombre')->get(),
             'retails' => [],
-            'sucursales' => []
+            'sucursales' => $sucursales
         ];
 
         return view($this->viewPrefix.'index')->with('data',$this->data);
@@ -90,7 +93,6 @@ class AlertasController extends CrudAdminController
     public function create()
     {
         parent::create();
-
 
         if (!auth()->user()->hasAnyRole(['Comprador','Marketing Manager'])) {
             throw new \Exception('No puedes realizar esta acción');

@@ -188,7 +188,7 @@ class VentasController extends CrudAdminController
                 ];
             }
         }
-        \Log::info($productosCombinado);
+        
         
         $this->data['selectedItem'] = $this->data['selectedItem']->toArray();
         $this->data['selectedItem']['productos'] = $productosCombinado;

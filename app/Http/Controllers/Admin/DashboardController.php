@@ -8,6 +8,9 @@ use App\Configuraciones;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AppBaseController;
+use App\Sucursales;
+use App\Retails;
+use App\Paises;
 
 class DashboardController extends AppBaseController
 {
@@ -34,6 +37,28 @@ class DashboardController extends AppBaseController
             'config' => $config,
             'url_save' => route('admin.home.guardar')
         ];
+
+        
+        if (auth()->user()->hasAnyRole(['Comprador','Marketing Manager'])) {
+            
+            $user       = auth()->user()->id;
+            $sucursales = Sucursales::whereRetailId(auth()->user()->retail_id)->whereEnabled(true)->get();
+            $retail     = Retails::find(auth()->user()->retail_id);
+
+            $retaildata = [
+                'nombre'    => $retail->nombre,
+                'pais'      => Paises::find($retail->pais_id)->nombre
+            ];
+
+            $data['user'] = [
+                'id'            => auth()->user()->id,
+                'nombre'        => auth()->user()->nombre,
+                'apellido'      => auth()->user()->apellido,
+                'sucursales'    => $sucursales,
+                'retail'        => $retaildata
+            ];
+
+        }
         return view('admin.dashboard',['data' => $data]);
     }
 

@@ -8,6 +8,7 @@
                 <th>Logo</th>
                 <th>Color Hexa</th>
                 <th>Sucursales</th>
+                <th>Ranking</th>
                 <th class="td-actions">{{ trans('admin.table.actions') }}</th>
             </tr>
         </thead>
@@ -22,6 +23,9 @@
                     <a :href="urlImportarSucursales(item)"><i class="fa fa-circle"></i> Importar</a><br>
                     <a target="_blank" :href="urlListadoSucursales(item)"><i class="fa fa-circle"></i> Listado</a><br>
                     <a :href="urlObjetivos(item)"><i class="fa fa-circle"></i> Objetivos</a><br>
+                </td>
+                <td>
+                    <a target="_blank" :href="urlRanking(item)"><i class="fa fa-circle"></i> Ver</a><br>
                 </td>
                 <td class="td-actions">
                     @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('ver-'.$data['action_perms']))

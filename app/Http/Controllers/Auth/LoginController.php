@@ -41,14 +41,19 @@ class LoginController extends Controller
 
     protected function credentials(Request $request)
     {
-        $credentials = $request->only($this->username(), 'password');
+
+        $credentials = $request->only($this->username(), 'password','confirmado');
         // Customization: validate if client status is active (1)
         return $credentials;
     }
 
     public function login(Request $request)
     {
+        $request->merge(['confirmado' => true]);
+        
         $this->validateLogin($request);
+
+        
 
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);

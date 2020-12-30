@@ -18,7 +18,7 @@
 				
 				_login.enviando = true;
 				_this._call(_url,'POST',_form,true,_this.errors,scope).then(function(data) {
-					console.debug(data);
+					//console.debug(data);
 					if (data.url_redirect) {
 						document.location = data.url_redirect;
 					} else {

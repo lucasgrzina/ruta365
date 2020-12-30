@@ -77,7 +77,7 @@ body {
 
 
 .container .navbar-ruta ul li {
-  padding-right: 34px;
+  padding-right: 25px;
 }
 
 .container .navbar-ruta ul li:last-child {
@@ -321,6 +321,34 @@ nav a {
 }
 
 
+.fotos-sucursales {
+  background-color: #33c1f7;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.fotos-sucursales h2 {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.custom-file-label {
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 10px;
+  text-align: left;
+  color: #fff;
+  background-color: #33c1f7;
+  border: 1px solid #fff;
+  border-radius: 0;
+}
+
+.custom-file-label::after {
+  content: "Buscar";
+  color: #33c1f7;
+  background-color: #fff;
+  border-radius: 0;
+}
 
 
 

@@ -19,7 +19,8 @@
 @endsection
 
 @section('content-header')
-{!! AdminHelper::contentHeader('Sucursales',trans('admin.list'),'new','create()') !!}
+
+{!! AdminHelper::contentHeader("Sucursales: {$data['retail']->nombre} ({$data['retail']->pais->nombre})",trans('admin.list'),'new','create()') !!}
 @endsection
 
 @section('content')
@@ -27,11 +28,6 @@
     <div class="content">
         <div class="box box-default box-page-list">
             <div class="box-body box-filter">
-                <div class="form-inline">
-                    @include('admin.includes.crud.index-filters-input')
-                    <!-- cualquier otro campo -->
-                    @include('admin.includes.crud.index-filters-btn')
-                </div>
             </div>
             <div class="box-body box-list no-padding">
                     @include('admin.sucursales.table')

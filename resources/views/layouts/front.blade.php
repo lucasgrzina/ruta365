@@ -41,7 +41,21 @@
           lang: {!! json_encode( trans('admin') ) !!},
           usuario: {!! \Auth::check() ? json_encode(array_only(\Auth::user()->toArray(),['nombre','apellido','id'])) : 'null' !!},
       };
-      var _mounted = [];            
+      var _mounted = [];     
+
+      _methods.irA = function (hash) {
+        console.debug(hash);
+        $('html, body').animate({
+          scrollTop: $(hash).offset().top
+          }, 300, function(){
+  
+          // when done, add hash to url
+          // (default click behaviour)
+          window.location.hash = hash;
+          });
+        
+      };  
+
 </script>        
   </head>
   <body class="text-center">
@@ -80,6 +94,33 @@
     <script src="{{ asset('vendor/vue-resource.min.js') }}"></script>
 
     @yield('scripts')
+    <script type="text/javascript">
+      $("#navbars ul li a[href^='#']").on('click', function(e) {
+      
+      if ( $(this).hasClass("btn-cambiar-pass")) {
+        console.log("Btn Cambiar Contraseña");
+      } else if ( $(this).hasClass("btn-salir")) {
+        console.log("Btn Salir");
+      } else {
+        
+        // prevent default anchor click behavior
+        e.preventDefault();
+  
+        // store hash
+        var hash = this.hash;
+  
+        // animate
+        /*$('html, body').animate({
+          scrollTop: $(hash).offset().top
+          }, 300, function(){
+  
+          // when done, add hash to url
+          // (default click behaviour)
+          window.location.hash = hash;
+          });*/
+        }
+      });
+    </script>      
     <script src="{{ asset('js/template.js') }}"></script>         
   </body>
 </html>

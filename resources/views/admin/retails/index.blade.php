@@ -24,11 +24,64 @@
             var _this = this;
             return _this.url_sucursales.replace('_ID_',item.id);
         };
+
+        _methods.urlRanking = function (item) {
+            var _this = this;
+            return '{{route('admin.ranking',['_ID_'])}}'.replace('_ID_',item.id);
+        };        
         
         _methods.urlObjetivos = function (item) {
             var _this = this;
             return _this.url_objetivos.replace('_ID_',item.id);
-        };        
+        };  
+        
+		_methods.alCambiar = function(campo) {
+			var _this = this;
+			var _errorMsg = null;
+			var _url = null;
+			var _data = [];
+			var _valorCampo = null;
+			
+			_valorCampo = _this.filters[campo];
+
+			if (campo === 'pais_id') {
+				 
+				_this.filters.retail_id = null;
+				_this.filters.sucursal_id = null;
+
+				_url = '{{route("combo.retails")}}';
+				_data = {
+					pais_id: _valorCampo
+				};
+
+				_this.$set(_this.info,'retails',[]);
+				_this.$set(_this.info,'sucursales',[]);
+			} else {
+				_this.filters.sucursal_id = null;
+
+				_url = '{{route("combo.sucursales")}}';
+				_data = {
+					retail_id: _valorCampo
+				};
+
+				_this.$set(_this.info,'sucursales',[]);
+			}
+
+			if (_valorCampo) {
+				_this._call(_url,'POST',_data).then(function(data) {
+					if (campo === 'pais_id') {
+						_this.$set(_this.info,'retails',data);
+					} else {
+						_this.$set(_this.info,'sucursales',data);
+					}
+					// _this.registro.enviando = false;
+				}, function(error) {
+					// _this.registro.enviando = false;
+				});          
+
+			}
+			
+		};            
 
         this._mounted.push(function(_this) {
             _this.doFilter();
@@ -48,7 +101,19 @@
         <div class="box box-default box-page-list">
             <div class="box-body box-filter">
                 <div class="form-inline">
-                    @include('admin.includes.crud.index-filters-input')
+                    <div class="form-group"  >
+                        <select v-model="filters.pais_id" class="form-control input-sm" name="pais_id" @change="alCambiar('pais_id')">
+                            <option v-for="item in info.paises" :value="item.id">(% item.nombre %)</option>
+                            <option :value="null">Paises (todos)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" >
+                        <select v-model="filters.retail_id" class="form-control input-sm" name="retail_id">
+                            <option v-for="item in info.retails" :value="item.id">(% item.nombre %)</option>
+                            <option :value="null">Retails (todos)</option>
+                        </select>
+                    </div>
+
                     <!-- cualquier otro campo -->
                     @include('admin.includes.crud.index-filters-btn')
                 </div>

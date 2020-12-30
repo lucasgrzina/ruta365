@@ -9,6 +9,11 @@
     @parent
     <script type="text/javascript">
         var _data = {!! json_encode($data) !!};
+
+        _methods.fondoInfoCluster = function (categoria, campo) {
+            var _this = this;
+            return _this.selectedItem['cat_'+ categoria + '_' + campo] > 0 ? 'bg-info' : 'bg-danger';
+        }
     </script>
     <script type="text/javascript" src="{{ asset('vendor/vee-validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admin/crud/js/cu.js') }}"></script>
@@ -16,7 +21,7 @@
 @endsection
 
 @section('content-header')
-{!! AdminHelper::contentHeader('Retails', 'Objetivos') !!}
+{!! AdminHelper::contentHeader("Retails: {$data['selectedItem']->nombre} ({$data['selectedItem']->pais->nombre})", 'Objetivos') !!}
 @endsection
 
 @section('content')
@@ -35,6 +40,8 @@
                                         </template>
                                         <template v-else>
                                             <th>Categoría</th>
+                                            <th>Target Attach</th>
+                                            <th>Piso Unid. Office</th>
                                         </template>                                    
                                 </tr>
                             </thead>
@@ -56,6 +63,18 @@
                                                 <option :value="5">Categoria 5</option>
                                             </select>                                            
                                         </td>
+                                        <td>
+                                            <p :class="[fondoInfoCluster(sucursal.categoria_cluster,'target_attach'),'text-center','p-10','m-0']">
+                                                (% selectedItem['cat_'+sucursal.categoria_cluster+'_target_attach'] > 0 ? selectedItem['cat_'+sucursal.categoria_cluster+'_target_attach'] : 'Sin cargar' %)
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p :class="[fondoInfoCluster(sucursal.categoria_cluster,'puo'),'text-center','p-10','m-0']">
+                                                (% selectedItem['cat_'+sucursal.categoria_cluster+'_puo'] > 0 ? selectedItem['cat_'+sucursal.categoria_cluster+'_puo'] : 'Sin cargar' %)
+                                            </p>
+
+                                        </td>
+
                                     </template>
                                 </tr>
                                 
@@ -65,7 +84,7 @@
             </div>
             <div class="box-footer text-right">
                 @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('editar-'.$data['action_perms']))
-                    <button-type type="save" :promise="store"></button-type>
+                    <button-type type="save" :promise="store" v-if="selectedItem.sucursales.length > 0"></button-type>
                 @endif
                 <button-type type="back" @click="goTo(url_index)"></button-type>
             </div>        

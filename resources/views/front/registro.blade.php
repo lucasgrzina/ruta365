@@ -16,8 +16,8 @@
 				_registro.enviando = true;
 				_this._call(_registro.url_post,'POST',_registro.form,true,_this.errors,scope).then(function(data) {
 					//location.reload();
-					alert('Recibirás un correo con los pasos para activar tu cuenta.')
-					document.location = '{{route('login')}}';
+					//alert('Muchas gracias por haberte registrado.\nValidaremos los datos y muy pronto te enviaremos un email para que puedas ingresar al sitio.');
+					document.location = '{{route('registro.gracias')}}';
 					_registro.enviando = false;
 				}, function(error) {
 					if (error.status != 422) {
@@ -96,7 +96,6 @@
 		};		
 
         this._mounted.push(function(_this) {
-            console.debug(_this);
         });
 
         var registroPage = true;

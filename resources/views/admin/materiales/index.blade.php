@@ -60,7 +60,21 @@
 
 			}
 			
-		};        
+        };        
+        
+        _methods.mostrarTipo = function(tipo) {
+            switch (tipo) {
+                case 'R':
+                    return 'POP';
+                    break;
+                case 'P':
+                    return 'POE';
+                    break;
+                case 'F':
+                    return 'Foto sucursal';
+                    break;                    
+            }
+        };        
         this._mounted.push(function(_this) {
             _this.doFilter();
         });
@@ -71,11 +85,11 @@
 
 @section('content-header')
 <section class="content-header">
-    <h1>Materiales (POP / Fotos)</h1>
+    <h1>Materiales (POE / Fotos)</h1>
     <small>Listado</small>
     @if(auth()->user()->hasAnyRole(['Comprador','Marketing Manager']))
     <div class="pull-right">
-        <button type="button" title="" class="btn btn-sm bg-green btn-new" @click="create('P')"><i class="fa fa-plus"></i> Nuevo POP</button>
+        <button type="button" title="" class="btn btn-sm bg-green btn-new" @click="create('P')"><i class="fa fa-plus"></i> Nuevo POE</button>
         <button type="button" title="" class="btn btn-sm bg-green btn-new" @click="create('F')"><i class="fa fa-plus"></i> Nueva Foto sucursal</button>
     </div>
     @endif
@@ -108,7 +122,8 @@
 
                     <div class="form-group">
                         <select v-model="filters.tipo" class="form-control input-sm" name="tipo" >
-                            <option :value="'P'">POP</option>
+                            <option :value="'R'">POP</option>
+                            <option :value="'P'">POE</option>
                             <option :value="'F'">Fotos sucursal</option>
                             <option :value="null">Todos</option>
                         </select>  

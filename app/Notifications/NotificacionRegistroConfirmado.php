@@ -3,26 +3,23 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use App\Helpers\GeneralHelper;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
-class MailRequestPasswordToken extends Notification
+class NotificacionRegistroConfirmado extends Notification
 {
     use Queueable;
-    public $clave;
-    public $user;
+    public $registrado;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($clave,$user)
+    public function __construct($registrado)
     {
-        $this->clave = $clave;
-        $this->user = $user;
+        $this->registrado = $registrado;
     }
 
     /**
@@ -45,12 +42,10 @@ class MailRequestPasswordToken extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                ->subject('Ruta 365 - Nueva clave')
-                ->markdown('emails.reset-password',[
-                    'clave' => $this->clave,
-                    'user' => $this->user,
-                    'linkRespaldo' => route('mailingRespaldo.registro',[md5($this->user->id)])
-                ]);
+                ->subject('Ruta 365 - Tu cuenta ha sido activada')
+                ->markdown('emails.registro-confirmado', [
+                    'registrado' => $this->registrado,
+                    'linkRespaldo' => route('mailingRespaldo.registro-confirmado',[md5($this->registrado->id)])]);
     }
 
     /**

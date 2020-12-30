@@ -16,6 +16,7 @@ class RetailsSucursalesController extends CrudAdminParentController
     protected $routePrefix = 'retailsSucursales';
     protected $viewPrefix  = 'admin.sucursales.';
     protected $actionPerms = 'sucursales';
+    protected $retail = null;
 
     public function __construct(SucursalesRepository $repo)
     {
@@ -28,7 +29,7 @@ class RetailsSucursalesController extends CrudAdminParentController
     public function index($parentId)
     {
         parent::index($parentId);
-
+        $this->data['retail'] = Retails::with(['pais'])->find($parentId);
         return view($this->viewPrefix.'index')->with('data',$this->data);
     }
 
@@ -69,7 +70,7 @@ class RetailsSucursalesController extends CrudAdminParentController
     {
         parent::create($parentId);
 
-        $parent = Retails::find($parentId);
+        $parent = Retails::with('pais')->find($parentId);
         
         data_set($this->data, 'selectedItem', [
                 'id' => 0,
@@ -95,7 +96,7 @@ class RetailsSucursalesController extends CrudAdminParentController
     public function edit($parentId,$id)
     {
         parent::edit($parentId,$id);
-        $this->data['selectedItem']->load(['retail']);
+        $this->data['selectedItem']->load(['retail.pais']);
 
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }

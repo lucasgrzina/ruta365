@@ -10,6 +10,7 @@ use App\Notifications\MailPedidoConfirmado;
 use App\Notifications\NotificacionRegistro;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Notifications\MailRequestPasswordToken;
+use App\Notifications\NotificacionRegistroConfirmado;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Registrado extends Authenticatable
@@ -45,7 +46,7 @@ class Registrado extends Authenticatable
     protected $casts = [
         'enabled' => 'boolean',
         'sucursal_id' => 'integer',
-        'confirmado' => 'boolean'
+        'confirmado' => 'integer'
     ];
 
     /**
@@ -83,7 +84,14 @@ class Registrado extends Authenticatable
             \Log::error('*******SEND EMAIL ERROR: ' . $e->getMessage());
         }
     }
-
+    public function enviarNotificacionRegistroConfirmado()
+    {
+        try {
+            $this->notify(new NotificacionRegistroConfirmado($this));
+        } catch (\Exception $e) {
+            \Log::error('*******SEND EMAIL ERROR: ' . $e->getMessage());
+        }
+    }
     /*public function setUsuarioAttribute($value)
     {
         $this->attributes['usuario'] = $this->attributes['email'];

@@ -48,10 +48,18 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <a class="btn btn-sm btn-primary" href="#"><i class="fa fa-link"></i> link #1</a>
-                    <a class="btn btn-sm btn-primary" href="#"><i class="fa fa-link"></i> link #2</a>
-                    <a class="btn btn-sm btn-primary" href="#"><i class="fa fa-link"></i> link #3</a>
+                    @if (\App\Helpers\AdminHelper::mostrarMenu('alertas'))
+                    <a class="btn btn-sm btn-primary" href="{!! route('alertas.index') !!}"><i class="fa fa-link"></i> Alertas</a>
+                    @endif
+                    @if (\App\Helpers\AdminHelper::mostrarMenu('materiales'))
+                    <a class="btn btn-sm btn-primary" href="{!! route('materiales.index') !!}"><i class="fa fa-link"></i> Materiales</a>
+                    @endif
+                    @if (\App\Helpers\AdminHelper::mostrarMenu('ventas'))
+                    <a class="btn btn-sm btn-primary" href="{!! route('ventas.index') !!}"><i class="fa fa-link"></i> Ventas</a>
+                    @endif
+                    @if (\App\Helpers\AdminHelper::mostrarMenu('ranking'))
+                    <a class="btn btn-sm btn-primary" href="{!! route('admin.ranking') !!}"><i class="fa fa-link"></i> Ranking</a>
+                    @endif
                 
             @else
 			<p>Seleccioná una opción del menú de la izquierda para comenzar.</p>

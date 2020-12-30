@@ -202,6 +202,10 @@ _components['button-type'] = {
                 this.title = 'Calcular liquidación';                
                 this.text = ' Calcular liquidación';
                 break;
+            case 'check-list':
+                this.theClass = 'btn btn-xs bg-green';
+                this.icon += 'check';
+                break;                 
     
         }
 

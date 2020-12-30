@@ -26,4 +26,13 @@ class MailingRespaldoController extends AppBaseController
         return $markdown->render('emails.registro', ['registrado' => $registrado, 'respaldo' => true]);
 
     }
+
+    public function registroConfirmado($guid)
+    {
+        $registrado = Registrado::where(\DB::raw('md5(id)'),$guid)->first();
+        $markdown = new Markdown(view(), config('mail.markdown'));
+
+        return $markdown->render('emails.registro-confirmado', ['registrado' => $registrado, 'respaldo' => true]);
+
+    }    
 }

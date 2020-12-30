@@ -76,7 +76,7 @@ class PremiosController extends CrudAdminController
         ]);
 
         data_set($this->data,'info',[
-            'retails' => Retails::doesnthave('premio')->get()
+            'retails' => Retails::with('pais')->doesnthave('premio')->orderBy('pais_id')->orderBy('nombre')->get()
         ]);
 
         return view($this->viewPrefix.'cu')->with('data',$this->data);

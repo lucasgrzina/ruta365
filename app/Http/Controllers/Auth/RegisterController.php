@@ -69,7 +69,10 @@ class RegisterController extends Controller
     {
         $rules = Registrado::$rules;
         $rules['email'] = str_replace('{:id}', 0, $rules['email']);
-        return Validator::make($data, $rules);
+        $messages = [
+            'email.unique' => ' Esta dirección de email ya está siendo utilizada por otro usuario.'
+        ];
+        return Validator::make($data, $rules, $messages);
     }
 
     /**
@@ -81,11 +84,12 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         //$data['usuario'] = $data['email'];
+        $data['confirmado'] = 2;
         try {
             DB::beginTransaction();
             $model = Registrado::create($data);
 
-            $model->enviarNotificacionRegistro();
+            //$model->enviarNotificacionRegistro();
 
             //throw new \Exception("Error Processing Request", 1);
             DB::commit();

@@ -3,11 +3,12 @@
     {!! Form::label('retail_id', 'Retail*') !!}
     <select v-if="!selectedItem.id" v-model="selectedItem.retail_id" class="form-control" name="retail_id" v-validate="'required'" data-vv-validate-on="'none'">
         <option :value="null">Seleccione</option>
-        <option v-for="item in info.retails" :value="item.id">(% item.nombre %)</option>
+        <option v-for="item in info.retails" :value="item.id">(% item.nombre + '/' + item.pais.nombre %)</option>
     </select>
-    <span v-else class="form-control">(% selectedItem.retail.nombre %)</span>
+    <span v-else class="form-control">(% selectedItem.retail.nombre + '/' + selectedItem.retail.pais.nombre  %)</span>
     <span class="help-block" v-show="errors.has('retail_id')">(% errors.first('retail_id') %)</span>
 </div>
+
 <div class="clearfix"></div>
 <div class="form-group col-sm-6" :class="{'has-error': errors.has('imagen_web')}">
     {!! Form::label('imagen_web', 'Imagen (WEB)') !!}

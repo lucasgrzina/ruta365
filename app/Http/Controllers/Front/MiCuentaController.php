@@ -112,4 +112,15 @@ class MiCuentaController extends AppBaseController
         return redirect()->route('home');
 
     }
+
+    public function registroGracias() {
+        if (auth()->check()) {
+            auth()->logout();
+        }
+        $this->data['gracias'] = [
+            'titulo' => 'Muchas gracias',
+            'subtitulo' => ('En los próximos minutos validaremos los datos de registro y te enviaremos un email a tu casilla de correo.<br>Si no encuentras el mail en la bandeja de entrada, por favor chequea en la bandeja de correo no deseado y Spam.<br><br>Si tienes alguna duda o consulta, nos puedes escribir a <a style="color:#fff;text-decoration:underline;" href="mailto:contacto@ruta365.live">contacto@ruta365.live</a>')
+        ];
+        return view('front.gracias', ['data' => $this->data]);
+    }    
 }

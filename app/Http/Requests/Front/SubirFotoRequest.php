@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests\Front;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Registrado;
+use Illuminate\Foundation\Http\FormRequest;
 
-class RegistrarRequest extends FormRequest
+
+class SubirFotoRequest extends FormRequest
 {
 
     /**
@@ -25,15 +26,10 @@ class RegistrarRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = Registrado::$rules;
-        //$rules['name'] = str_replace('{:id}', $this->get('id') , $rules['name']); 
-        return $rules;
-    }
-
-    public function messages()
-    {
-        return [
-            'email.unique' => ' Esta dirección de email ya está siendo utilizada por otro usuario.'
+        $rules = [
+            'archivo' => 'required',
+            'registrado_id' => 'required'
         ];
+        return $rules;
     }
 }

@@ -118,8 +118,6 @@ class UserController extends AppBaseController
                 'id' => 0,
                 'role_id' => null,
                 'enabled' => true,
-                'documento' => null,
-                'porc_comision' => 0
             ],
             'info' => [
                 'roles' => $this->role_repo->getActivos(),    

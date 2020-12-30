@@ -57,7 +57,7 @@
 @endsection
 
 @section('content-header')
-    {!! AdminHelper::contentHeader('Clientes','Importar',false) !!}
+    {!! AdminHelper::contentHeader("Retails: {$data['retail']->nombre} ({$data['retail']->pais->nombre})",'Importar',false) !!}
 @endsection
 
 @section('content')

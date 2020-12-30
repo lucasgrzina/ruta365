@@ -6,6 +6,7 @@
                 <th>Sucursal</th>
                 <th>Cantidad Dispositivos</th>
                 <th class="text-center" v-for="producto in info.productos">(% producto.nombre %)</th>
+                <th>Fecha</th>
                 <th class="td-actions">{{ trans('admin.table.actions') }}</th>
             </tr>
         </thead>
@@ -17,6 +18,7 @@
                 <td class="text-center" v-for="producto in info.productos">
                     (% obtenerCantPorProducto(item.productos,producto) %)
                 </td>
+                <td>(% item.created_at | dateFormat %)</td>
                 <td class="td-actions">
                     @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('editar-'.$data['action_perms']))
                         <button-type type="edit-list" @click="edit(item)"></button-type>

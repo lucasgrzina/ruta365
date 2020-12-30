@@ -19,13 +19,39 @@
 <!-- Tipo Field -->
 <div class="form-group col-sm-6" :class="{'has-error': errors.has('tipo')}">
     {!! Form::label('tipo', 'Tipo') !!}
-    <span v-if="selectedItem.tipo === 'P'" class="form-control">POP</span>
+    <span v-if="selectedItem.tipo === 'P'" class="form-control">POE</span>
     <span v-if="selectedItem.tipo === 'F'" class="form-control">Foto sucursal</span>
     <span class="help-block" v-show="errors.has('tipo')">(% errors.first('tipo') %)</span>
 </div>
 
 <!-- Imagen Field -->
 <div class="form-group col-sm-6" :class="{'has-error': errors.has('imagen')}">
+    {!! Form::label('imagen', 'Archivo') !!}<br>
+    <div class="input-group">
+      <div  type="text" class="form-control">
+        <div class="progress m-t-5 m-b-0" v-if="files.imagen.length > 0 && files.imagen[0].progress < 100">
+            <div class="progress-bar" :style="{ width: files.imagen[0].progress+'%' }"></div>
+        </div>            
+        <a target="_blank" v-if="selectedItem.imagen" :href="selectedItem.imagen_url">(% selectedItem.imagen %)</a>
+      </div>
+      <span class="input-group-btn">
+        <file-upload
+            :multiple="false"
+            :headers="_fuHeader"
+            ref="uploadImagen"
+            input-id="imagenweb"
+            v-model="files.imagen"
+            post-action="{{ route('uploads.store-file') }}"
+            @input-file="inputImagen"
+            class="btn btn-default">
+                <span>Buscar...</span>
+        </file-upload>         
+      </span>
+    </div> 
+       
+    <span class="help-block" v-show="errors.has('imagen')">(% errors.first('imagen') %)</span>
+</div>
+<!--div class="form-group col-sm-6" :class="{'has-error': errors.has('imagen')}">
     {!! Form::label('imagen', 'Imagen') !!}
     <div class="thumb-wrap">
         <button-type v-if="selectedItem.imagen" type="remove-list" @click="removeImagen()"></button-type>
@@ -34,8 +60,6 @@
             :multiple="false"
             :headers="_fuHeader"
             ref="uploadImagen"
-            extensions="gif,jpg,jpeg,png,webp,svg"
-            accept="image/png,image/gif,image/jpeg,image/webp,image/svg"            
             input-id="imagenweb"
             v-model="files.imagen"
             post-action="{{ route('uploads.store-file') }}"
@@ -49,7 +73,7 @@
         </file-upload>
     </div>    
     <span class="help-block" v-show="errors.has('imagen')">(% errors.first('imagen') %)</span>
-</div>
+</div-->
 <!-- Descripcion Field -->
 <div class="form-group col-sm-12 col-lg-12" :class="{'has-error': errors.has('descripcion')}">
     {!! Form::label('descripcion', 'Descripcion') !!}

@@ -32,9 +32,9 @@
 
         _methods.alCambiarRol = function () {
             var _this = this;
-            if (!_this.esRolVendedor()) {
+            /*if (!_this.esRolVendedor()) {
                 _this.selectedItem.porc_comision = 0;
-            }
+            }*/
         }
     </script>
 @endsection

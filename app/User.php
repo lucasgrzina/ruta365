@@ -24,7 +24,7 @@ class User extends Authenticatable
 
     protected $guard = 'admin';
     protected $fillable = [
-        'nombre','apellido','enabled', 'email', 'password','documento','porc_comision','retail_id'
+        'nombre','apellido','enabled', 'email', 'password','retail_id'
     ];
     protected $dates = ['deleted_at'];
 

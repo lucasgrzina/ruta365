@@ -23,14 +23,14 @@
 
 <tr>
 	<td>{!! Form::label('tipo', 'Tipo') !!}</td>
-	<td>(% selectedItem.tipo === 'P' ? 'POP' : 'Foto sucursal' %)</td>    
+	<td>(% mostrarTipo(selectedItem.tipo) %)</td>    
 </tr>
 
 <tr>
-	<td>{!! Form::label('imagen', 'Imagen') !!}</td>
+	<td>{!! Form::label('imagen', 'Archivo') !!}</td>
 	<td>
 		<a :href="selectedItem.imagen_url" target="_blank">
-			<img style="width:50px" :src="selectedItem.imagen_url">
+			Descargar / Abrir
 		</a>
 	</td>    
 </tr>

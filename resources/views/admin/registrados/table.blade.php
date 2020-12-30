@@ -5,10 +5,11 @@
                 <th @click="orderBy('id')" class="td-id" :class="cssOrderBy('id')">ID</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Especialidad</th>
-                <th>Pais</th>
                 <th>Email</th>
-                <th class="td-actions">{{ trans('admin.table.actions') }}</th>
+                <th>Sucursal</th>
+                <th>Retail</th>
+                <th>Pais</th>
+                <th class="td-enabled td-actions">Confirmado</th>
             </tr>
         </thead>
         <tbody>
@@ -16,18 +17,17 @@
                 <td>(% item.id %)</td>
                 <td>(% item.nombre %)</td>
                 <td>(% item.apellido %)</td>
-                <td>(% item.especialidad %)</td>
-                <td>(% item.pais %)</td>
                 <td>(% item.email %)</td>
-                <td class="td-actions">
-                    @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('ver-'.$data['action_perms']))
-                        <button-type type="show-list" @click="show(item)"></button-type>
-                    @endif
-                    @if(auth()->user()->hasRole('Superadmin') || auth()->user()->can('editar-'.$data['action_perms']))
-                        <!--button-type type="edit-list" @click="edit(item)"></button-type>
-                        <button-type type="remove-list" @click="destroy(item)"></button-type-->
-                    @endif
-                </td>            
+                <td>(% item.sucursal.nombre %)</td>
+                <td>(% item.sucursal.retail.nombre %)</td>
+                <td>(% item.sucursal.retail.pais.nombre %)</td>
+                <td class="td-enabled td-actions">
+                    <template v-if="item.confirmado == 2">
+                        <button-type type="check-list" @click="enableRegistered(item,true)" :disabled="confirmando"></button-type>
+                        <button-type type="close-list" @click="enableRegistered(item,false)" :disabled="confirmando"></button-type>
+                    </template>
+                    <switch-button v-else v-model="item.confirmado" theme="bootstrap" type-bold="true" @onChange="onChangeEnabled(item)"></switch-button>
+                </td>                          
             </tr>
         </tbody>
     </table>

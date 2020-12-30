@@ -31,7 +31,7 @@
 @endsection
 
 @section('content-header')
-{!! AdminHelper::contentHeader('Contactos',trans('admin.list'),'new','create()') !!}
+{!! AdminHelper::contentHeader('Contactos',trans('admin.list')) !!}
 @endsection
 
 @section('content')

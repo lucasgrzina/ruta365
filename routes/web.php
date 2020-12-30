@@ -65,6 +65,11 @@ Route::prefix('/admin')->group(function () {
         Route::post('paises/filter', 'Admin\PaisesController@filter')->name('paises.filter');
         Route::resource('paises', 'Admin\PaisesController');
 
+        Route::get('/registrados/rechazados-a-pendientes', 'Admin\RegistradoController@rechazadosAPendientes')->name('registrados.rechazados-a-pendientes');
+        Route::post('registrados/change-enabled', 'Admin\RegistradoController@changeEnabled')->name('registrados.change-enabled');
+        Route::post('registrados/filter', 'Admin\RegistradoController@filter')->name('registrados.filter');
+        Route::post('registrados/enable-registered', 'Admin\RegistradoController@enableRegistered')->name('registrados.enable-registered');
+        Route::resource('registrados', 'Admin\RegistradoController');
 
         Route::get('retails/sucursales/{parentId}', 'Admin\RetailsSucursalesController@index')->name('retailsSucursales.index');
         Route::get('retails/sucursales/{parentId}/create', 'Admin\RetailsSucursalesController@create')->name('retailsSucursales.create');
@@ -143,6 +148,11 @@ Route::prefix('/admin')->group(function () {
         Route::get('/previsualizar', 'Admin\DashboardController@previsualizar')->name('admin.previsualizar');
         Route::get('/dashboard', 'Admin\DashboardController@index')->name('admin.home');
         Route::post('/dashboard/save', 'Admin\DashboardController@guardar')->name('admin.home.guardar');
+        
+        Route::get('/ranking/categoria/{idCategoria}', 'Admin\RankingController@rankingCategoria')->name('admin.ranking.categoria');
+        Route::get('/ranking/{id?}', 'Admin\RankingController@index')->name('admin.ranking');
+
+        
     });
 });
 
@@ -168,6 +178,7 @@ Route::get('/log/borrar', function () {
 
 Route::prefix('mailing/respaldo')->group(function () {
     Route::get('/registro/{guid}', 'Front\MailingRespaldoController@registro')->name('mailingRespaldo.registro');
+    Route::get('/registro-confirmado/{guid}', 'Front\MailingRespaldoController@registroConfirmado')->name('mailingRespaldo.registro-confirmado');
 });
 
 
@@ -181,10 +192,13 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/login', 'Auth\LoginController@login')->name('login-post');
     Route::get('/registro', 'Front\MiCuentaController@registro')->name('registro');
     Route::post('/registro', 'Auth\RegisterController@register')->name('registro-post');
+    Route::get('/registro/gracias', 'Front\MiCuentaController@registroGracias')->name('registro.gracias');
 });
 Route::middleware(['auth'])->group(function () {    
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::post('/cambiar-password', 'Front\MiCuentaController@cambiarPassword')->name('miCuenta.cambiarPassword');
     Route::post('/guardar-contacto', 'Front\HomeController@guardarContacto')->name('guardarContacto');
+    Route::post('/subir-foto', 'Front\HomeController@subirFoto')->name('subirFoto');
     Route::get('/', 'Front\HomeController@index')->name('home');
 });
+//Route::get('/', 'Front\HomeController@proximamente')->name('home-pre');

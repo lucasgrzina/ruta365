@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Front;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Registrado;
 
-class RegistrarRequest extends FormRequest
+class CURegistradoRequest extends FormRequest
 {
 
     /**
@@ -26,14 +26,7 @@ class RegistrarRequest extends FormRequest
     public function rules()
     {
         $rules = Registrado::$rules;
-        //$rules['name'] = str_replace('{:id}', $this->get('id') , $rules['name']); 
+        $rules['email'] = str_replace('{:id}', $this->get('id') , $rules['email']); 
         return $rules;
-    }
-
-    public function messages()
-    {
-        return [
-            'email.unique' => ' Esta dirección de email ya está siendo utilizada por otro usuario.'
-        ];
     }
 }

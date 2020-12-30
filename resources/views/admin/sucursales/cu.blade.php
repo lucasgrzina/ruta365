@@ -17,7 +17,7 @@
 @endsection
 
 @section('content-header')
-    {!! AdminHelper::contentHeader('Sucursales',isset($data['selectedItem']->id) && $data['selectedItem']->id > 0 ? trans('admin.edit') : trans('admin.add_new'),false) !!}
+    {!! AdminHelper::contentHeader("Sucursales: {$data['selectedItem']['retail']->nombre} ({$data['selectedItem']['retail']->pais->nombre})",isset($data['selectedItem']->id) && $data['selectedItem']->id > 0 ? trans('admin.edit') : trans('admin.add_new'),false) !!}
 @endsection
 
 @section('content')

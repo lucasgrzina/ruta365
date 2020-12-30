@@ -6,8 +6,12 @@
 <div class="container">
     <div class="top-menu d-flex bd-highlight mb-0 align-items-center ">
       <div class="mr-auto p-2 bd-highlight"><a href="#"><img src="{{asset('img/Logo-01.png')}}" alt="Target"></a></div>
-      <div class="p-2 bd-highlight ishop"><a href="#"><img src="{{asset('img/Logo-02.png')}}" alt="Target"></a></div>
-      <div class="p-2 bd-highlight "><a href="#"><img src="{{asset('img/Logo-03.png')}}" alt="Target"></a></div>
+      <div class="p-2 bd-highlight"><a href="#">
+        @if(isset($data['registrado']))
+        <img src="{{$data['registrado']->sucursal->retail->logo_url}}" alt="Target">
+        @endif
+      </a></div>
+      <!--div class="p-2 bd-highlight "><a href="#"><img src="{{asset('img/Logo-03.png')}}" alt="Target"></a></div-->
     </div>
     
     <nav class="navbar navbar-expand-xl navbar-ruta">
@@ -18,25 +22,28 @@
       <div class="collapse navbar-collapse" id="navbars">
         <ul class="navbar-nav mr-auto smooth-scroll">
           <li class="nav-item active">
-            <a class="nav-link" href="#inicio">Inicio<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#inicio" @click="irA('#inicio')">Inicio<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#ranking">Ranking</a>
+            <a class="nav-link" href="#ranking" @click="irA('#ranking')">Ranking</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#ventas">Ventas</a>
+            <a class="nav-link " href="#ventas" @click="irA('#ventas')">Ventas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#productos">Productos</a>
+            <a class="nav-link " href="#productos" @click="irA('#productos')">Productos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#premios">Premios</a>
+            <a class="nav-link " href="#premios" @click="irA('#premios')">Premios</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#mecanica">Mecánica</a>
+            <a class="nav-link " href="#mecanica" @click="irA('#mecanica')">Mecánica</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#contacto">Contacto</a>
+            <a class="nav-link " href="#fotos-sucursales"  @click="irA('#fotos-sucursales')">Fotos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="#contacto" @click="irA('#contacto')">Contacto</a>
           </li>
           <li class="nav-item">
             <a class="nav-link btn-cambiar-pass" href="#" data-toggle="modal" data-target="#modalPassword">Cambiar contraseña</a>
@@ -68,25 +75,26 @@
       <div class="row">
         <div class="col-sm back-grey-01">
           <img src="{{asset('img/Icon-01.png')}}" class="mx-auto d-block" alt="Target">
-          <h3>25%</h3>
+          <h3>{{number_format($data['estadisticas']['target_attach'],0)}}%</h3>
           <p>Target Attach</p>
         </div>
         <div class="col-sm back-grey-02">
           <img src="{{asset('img/Icon-02.png')}}" class="mx-auto d-block" alt="Actual">
-          <h3>10%</h3>
+          <h3>{{number_format ($data['estadisticas']['actual_attach'],0)}}%</h3>
           <p>Attach Actual</p>
         </div>
         <div class="col-sm back-grey-03">
           <img src="{{asset('img/Icon-03.png')}}" class="mx-auto d-block" alt="Ventas">
-          <h3>200</h3>
+          <h3>{{$data['estadisticas']['minimo_un_cumplir']}}</h3>
           <p>Mínimo de unidades a cumplir</p>
         </div>
         <div class="col-sm back-grey-04">
           <img src="{{asset('img/Icon-04.png')}}" class="mx-auto d-block" alt="Posición">
-          <h3>3</h3>
+          <h3>{{$data['estadisticas']['cantidad_office']}}</h3>
           <p>Unidades actuales</p>
         </div>
       </div>
     </div>
   </div>
+  
 @endif

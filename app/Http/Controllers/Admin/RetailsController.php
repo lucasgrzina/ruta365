@@ -13,7 +13,9 @@ use App\Imports\GeneralImport;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\UserRepository;
 use App\Repositories\RetailsRepository;
+
 use App\Http\Requests\Admin\CURetailsRequest;
+use App\Repositories\Criteria\RetailsCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Http\Controllers\Admin\CrudAdminController;
 
@@ -34,6 +36,18 @@ class RetailsController extends CrudAdminController
     public function index()
     {
         parent::index();
+
+        $this->data['filters']['pais_id'] = null;
+        $this->data['filters']['retail_id'] = null;
+        $this->data['filters']['sucursal_id'] = null;
+
+        $this->data['info'] = [
+            'paises' => Paises::whereEnabled(true)->orderBy('nombre')->get(),
+            'retails' => [],
+            'sucursales' => []
+        ];
+
+
         data_set($this->data, 'url_importar', route($this->routePrefix . '.importar-sucursales',['_ID_']));
         data_set($this->data, 'url_sucursales', route('retailsSucursales.index',['_ID_']));
         data_set($this->data, 'url_objetivos', route($this->routePrefix . '.objetivos',['_ID_']));
@@ -45,6 +59,7 @@ class RetailsController extends CrudAdminController
         try
         {
             $this->repository->pushCriteria(new RequestCriteria($request));
+            $this->repository->pushCriteria(new RetailsCriteria($request));
             $collection = $this->repository->with(['updater','pais'])->paginate($request->get('per_page'))->toArray();        
 
             $this->data = [
@@ -215,7 +230,7 @@ class RetailsController extends CrudAdminController
                         }
                         $usuario['retail_id'] = $model->id;
                         $userModel = $userRepo->create($usuario);
-            
+
                         $role = Role::whereId($usuario['role_id'])->firstOrFail();            
                         $userModel->assignRole($role); //Assigning role to user
                         
@@ -247,9 +262,11 @@ class RetailsController extends CrudAdminController
     {
         parent::create();
 
+        $this->data['retail'] = $this->repository->with(['pais'])->find($id);
+
         data_set($this->data, 'selectedItem', [
             'file' => null,
-            'file_url' => null
+            'file_url' => null,
         ]);
         data_set($this->data, 'url_importar_archivo', route($this->routePrefix . '.importar-archivo',[$id]));
         return view($this->viewPrefix . 'importar-sucursales')->with('data', $this->data);
@@ -280,12 +297,21 @@ class RetailsController extends CrudAdminController
 
             foreach ($data[0] as $row) {
                 $codigo = trim($row['codigo']);
+                
+                if ($row['target_attach']) {
+                    $targetAttach = (float)$row['target_attach'];
+                    $targetAttach = $targetAttach < 1 ? $targetAttach * 100 : $targetAttach; 
+                } else {
+                    $targetAttach = 0;
+                }
+                
                 if (array_key_exists((string)$codigo, $codigosDb)) {
                     //Para actualizar
+                    
                     Sucursales::whereId($codigosDb[$codigo])->update([
                         'nombre' => trim($row['nombre']),
                         //'observaciones' => $row['observaciones'],
-                        'target_attach' => $row['target_attach'] ? (float)$row['target_attach'] : 0,
+                        'target_attach' => $targetAttach,
                         'piso_unidades_office' => $row['piso_unidades_office'] ? (int)$row['piso_unidades_office'] : 0,
                         'categoria_cluster' => $row['categoria_cluster'] ? (int)$row['categoria_cluster'] : 0,
                     ]);
@@ -296,7 +322,7 @@ class RetailsController extends CrudAdminController
                             'retail_id' => $id,
                             'nombre' => trim($row['nombre']),
                             //'observaciones' => $row['observaciones'],
-                            'target_attach' => $row['target_attach'] ? (float)$row['target_attach'] : 0,
+                            'target_attach' => $targetAttach,
                             'piso_unidades_office' => $row['piso_unidades_office'] ? (int)$row['piso_unidades_office'] : 0,
                             'categoria_cluster' => $row['categoria_cluster'] ? (int)$row['categoria_cluster'] : 0,
                             'created_at' => Carbon::now()
@@ -323,7 +349,7 @@ class RetailsController extends CrudAdminController
     public function objetivos($id)
     {
         
-        $model = $this->repository->with(['sucursales'])->find($id);
+        $model = $this->repository->with(['sucursales','pais'])->find($id);
         
         data_set($this->data, 'selectedItem', $model);
         data_set($this->data, 'url_index', route($this->routePrefix . '.index'));

@@ -75,7 +75,7 @@ class BannersController extends CrudAdminController
         ]);
 
         data_set($this->data,'info',[
-            'retails' => Retails::doesnthave('banner')->get()
+            'retails' => Retails::with('pais')->doesnthave('banner')->orderBy('pais_id')->orderBy('nombre')->get()
         ]);
 
         return view($this->viewPrefix.'cu')->with('data',$this->data);

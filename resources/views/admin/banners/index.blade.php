@@ -27,11 +27,11 @@
     <div class="content">
         <div class="box box-default box-page-list">
             <div class="box-body box-filter">
-                <div class="form-inline">
+                <!--div class="form-inline">
                     @include('admin.includes.crud.index-filters-input')
-                    <!-- cualquier otro campo -->
+                    
                     @include('admin.includes.crud.index-filters-btn')
-                </div>
+                </div-->
             </div>
             <div class="box-body box-list no-padding">
                     @include('admin.banners.table')

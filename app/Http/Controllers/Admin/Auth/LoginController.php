@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use Request;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -46,6 +46,15 @@ class LoginController extends Controller
         //$request->session()->invalidate();
 
         return redirect()->route('admin.login');
+    }
+
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        return redirect()->route('admin.home');
     }
 
     protected function guard()

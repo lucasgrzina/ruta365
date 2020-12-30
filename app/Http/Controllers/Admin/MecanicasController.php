@@ -71,7 +71,7 @@ class MecanicasController extends CrudAdminController
             'cuerpo' => '',
         ]);
         data_set($this->data,'info',[
-            'retails' => Retails::doesnthave('mecanica')->get()
+            'retails' => Retails::with('pais')->doesnthave('mecanica')->orderBy('pais_id')->orderBy('nombre')->get()
         ]);
         return view($this->viewPrefix.'cu')->with('data',$this->data);
     }

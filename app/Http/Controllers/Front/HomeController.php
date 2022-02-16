@@ -78,7 +78,9 @@ class HomeController extends AppBaseController
                 $campoPuo = 'cat_' . $sucursal->categoria_cluster . '_puo';
                 $dataEstadisticaSucursal['target_attach'] = (float)$sucursal->retail->$campoTa;
                 $dataEstadisticaSucursal['minimo_un_cumplir'] = (int)$sucursal->retail->$campoPuo;
-                $this->data['ranking'] = GeneralHelper::rankingCluster($sucursal->retail->id,$sucursal->retail->categoria_cluster);
+                
+                $this->data['ranking'] = GeneralHelper::rankingCluster($sucursal->retail->id,$sucursal->categoria_cluster);
+                
             }
             $dataEstadisticaSucursal['actual_attach'] = $dataEstadisticaSucursal['cantidad_dispositivos'] > 0 ? ($dataEstadisticaSucursal['cantidad_office']/$dataEstadisticaSucursal['cantidad_dispositivos']) * 100 : 0;
 

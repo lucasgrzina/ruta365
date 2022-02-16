@@ -20,8 +20,7 @@
             _this.loading = true;
             _this.ajaxGet(_this.url_ranking_categoria.replace('_CAT_',_this.categoria)).then(function(data) {
 				_this.loading = false;
-				_this.tabla = data;
-				console.debug(data);
+				_this.tabla = _this.parsearData(data);
             }, function(error) {
                 
                 _this.loading = false;
@@ -29,8 +28,23 @@
             });            
         };
 
+        _methods.parsearData = function (data) {
+            var _data = [];
+            _.forEach(data, function(item) {
+                    console.debug(item);
+                    item.cantidad_office = Number(item.cantidad_office);
+                    item.puo = Number(item.puo);
+                    item.target_attach = Number(item.target_attach);
+                    item.cantidad_dispositivos = Number(item.cantidad_dispositivos);
+                    item.ta = Number(item.ta);
+                    item.tco = Number(item.tco);
+                    _data.push(item);
+            });
+            return _data;            
+        }
 
         this._mounted.push(function(_this) {
+            _this.tabla = _this.parsearData(_this.tabla);
         });
     </script>
     <script type="text/javascript" src="{{ asset('vendor/vuejs-paginate/vuejs-paginate.js') }}"></script>

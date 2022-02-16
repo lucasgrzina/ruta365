@@ -50,7 +50,7 @@ class GeneralHelper {
         ) aux
         ORDER BY ta DESC, cantidad_office DESC, cantidad_dispositivos DESC,nombre ASC";
 
-        \Log::info($sql);
+        //\Log::info($sql);
 
         return DB::select($sql);
     }
